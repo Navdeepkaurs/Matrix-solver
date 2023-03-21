@@ -1,0 +1,75 @@
+# matrix input 
+def printing(matrix):
+    for ele in matrix:
+        for el in ele:
+            if el>=0:
+                print('',el,end=' ')
+            else:
+                print(el,end=' ')
+        print()
+    print()
+    return 0
+def determinant(matrix):
+    a1 = matrix[0][0] * matrix[1][1] * matrix[2][2]
+    a2 = matrix[1][0] * matrix[2][1] * matrix[0][2]
+    a3 = matrix[2][0] * matrix[0][1] * matrix[1][2]
+    b1 = matrix[2][0] * matrix[1][1] * matrix[0][2]
+    b2 = matrix[0][0] * matrix[2][1] * matrix[1][2]
+    b3 = matrix[1][0] * matrix[0][1] * matrix[2][2]
+    det = (a1 + a2 + a3) - (b1 + b2 + b3)
+    return det
+def adjoint(matrix):
+    adjoint= [[0,0,0],[0,0,0],[0,0,0]]
+    adjoint[0][0]= matrix[1][1]  *matrix[2][2]-matrix[1][2]*matrix[2][1]
+    adjoint[1][0]= -(matrix[1][0]*matrix[2][2]-matrix[1][2]*matrix[2][0])
+    adjoint[2][0]= -(matrix[1][1]*matrix[2][0]-matrix[1][0]*matrix[2][1])
+    adjoint[0][1]= -(matrix[0][1]*matrix[2][2]-matrix[0][2]*matrix[2][1])
+    adjoint[1][1]= matrix[0][0]  *matrix[2][2]-matrix[0][2]*matrix[2][0]
+    adjoint[2][1]= -(matrix[0][0]*matrix[2][1]-matrix[2][0]*matrix[0][1])
+    adjoint[0][2]= (matrix[0][1] *matrix[1][2]-matrix[1][1]*matrix[0][2])
+    adjoint[1][2]= -(matrix[0][0]*matrix[1][2]-matrix[0][2]*matrix[1][0])
+    adjoint[2][2]= matrix[1][1]  *matrix[0][0]-matrix[1][0]*matrix[0][1]
+    return adjoint
+
+def inverse(det,adj):
+    inverse= [[0,0,0],[0,0,0],[0,0,0]]
+    for i in range(3):
+        for j in range(3):
+            if det!=0:
+                inverse[i][j]=(adj[i][j]*(1/det))
+            else:
+                inverse = matrix
+    return inverse
+
+def det2(matrix,adj):
+    if adj[0][0]==adj[0][1]==adj[0][2]==adj[1][0]==adj[2][0]==adj[1][1]==adj[2][1]==adj[1][2]==adj[2][2]==0:
+        if matrix[0][0]==matrix[0][1]==matrix[0][2]==matrix[1][0]==matrix[2][0]==matrix[1][1]==matrix[2][1]==matrix[1][2]==matrix[2][2]!=0:
+            print('rank is 1')
+    else :
+        print('rank is 2 ')
+def rank(matrix,adj):
+    if det == 0 :
+        det2(matrix,adj)
+    else :
+        print('rank is 3')
+rows_column = input().split()
+no_of_rows = int(rows_column[0])
+no_of_columns = int(rows_column[1])
+if no_of_columns==no_of_rows:
+    matrix = [[ int(x) for x in input().split()] for j in range(no_of_rows)]
+
+det = determinant(matrix)
+# deteminant of 3X3 matrix
+print('DETERMINANT OF THE MATRIX IS -------> ',det)
+adj = adjoint(matrix)
+# adjoint of 3X3 matrix
+print('ADJOINT OF THE MATRIX IS :  ')
+(printing(adj))
+inv = inverse(det,adj)
+
+#inverse of 3X3 matrix
+print('INVERSE OF THE MATRIX IS :    ')
+(printing(inv))
+
+#rank of 3X3 matrix
+rank(matrix,adj)
